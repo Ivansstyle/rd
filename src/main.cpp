@@ -25,13 +25,13 @@ void onelineprint(std::string s)
 
 int main(int argc,char *argv[])
 {
-    // Checking if there are any arguments
+    // Reading the arguments
     std::vector<std::string> args;
 
     for (int a=0; a < argc; ++a) {
             args.push_back(argv[a]);
     }
-#ifdef iDEBUG //Printing received arguments in the defined function
+#ifdef iDEBUG // @DEBUG Printing received arguments
     onelineprint("\nPassed in arguments:");
     for (std::string arg : args) {
         std::cout<< arg << "; ";
@@ -42,4 +42,5 @@ int main(int argc,char *argv[])
     // Setting filepaths
     std::string dir = args[0];
     std::string dist = args[1];
+
 } // End of program
