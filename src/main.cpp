@@ -3,10 +3,12 @@
 
 /// @author Ivans Saponenko
 /// @macro iDEBUG = self-defined debug macro
+/// @abstract Setting the globals and uptime of the software
 
 // Includes
 #include <iostream>
 #include <vector>
+#include <chrono> ///@TODO Set-up application timing
 
 
 // Define DEBUG to print debug info to the terminal
@@ -21,7 +23,9 @@ void onelineprint(std::string s)
 }
 #endif
 
-
+// Defining globals
+static std::string dir;
+static std::string dist;
 
 int main(int argc,char *argv[])
 {
@@ -40,7 +44,7 @@ int main(int argc,char *argv[])
 #endif
 
     // Setting filepaths
-    std::string dir = args[0];
-    std::string dist = args[1];
+    dir = args[0];
+    dist = args[1];
 
 } // End of program
