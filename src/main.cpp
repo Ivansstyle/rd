@@ -10,6 +10,9 @@
 #include <vector>
 #include <chrono> ///@TODO Set-up application timing
 
+// CPU GPU Queries
+#include "include/queries.hpp"
+
 
 // Define iDEBUG to print debug info to the terminal
 #ifndef iDEBUG
