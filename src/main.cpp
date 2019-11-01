@@ -1,14 +1,13 @@
-// main.cpp
-// Provides main routine
-
+/// @name main.cpp
 /// @author Ivans Saponenko
 /// @macro iDEBUG = self-defined debug macro
-/// @abstract Setting the globals and uptime of the software
+/// @abstract Provides main routine
+
 
 // Includes
 #include <iostream>
 #include <vector>
-#include <chrono> ///@TODO Set-up application timing
+#include <chrono> /// @todo Set-up application timing
 
 // CPU GPU Queries
 #include "include/queries.hpp"
@@ -38,6 +37,10 @@ static std::string dist;
 static std::string filepath;
 static std::string program_name;
 
+/// @todo move to queries, and extern it here using a query class. Use accessors to query,
+/// make the queries do all the work, and declare a global way to access the file. By externing it
+
+
 int main(int argc,char *argv[])
 {
     // Getting a name
@@ -50,7 +53,7 @@ int main(int argc,char *argv[])
             args.push_back(argv[a]);
     }
 
-#ifdef iDEBUG // @DEBUG Printing received arguments
+#ifdef iDEBUG // @debug Printing received arguments
     onelineprint("\nPassed in arguments:");
     for (std::string arg : args) {
         std::cout<< arg << "; ";
@@ -61,13 +64,13 @@ int main(int argc,char *argv[])
     // Setting filepaths
     dir = args[0];
 
-    { // Deleting the program name from distination
+    { // Deleting the program name from the distination
         size_t strsize = dir.size();
         size_t namesize;
         std::string n = std::string(OUTPUT_EXTENTION);
         namesize = n.size();
         dir.resize(strsize - namesize);
-    } // works
+    }
 
     dist = args[1];
 
@@ -76,7 +79,7 @@ int main(int argc,char *argv[])
 
     char compare = dist[0];
     if(compare == 45) // Check for the output file specification, 45 = "-" in ascii
-        // @TODO Change to more versatile scanner
+        // @todo Change to more versatile scanner
     {
         std::cout<<"Output file has not been specified"<<"\n";
         std::cout<<"Setting default output destination to "<<
@@ -97,15 +100,17 @@ int main(int argc,char *argv[])
 #endif
 
 
-
     int running = 0;
     // Load and initialize
 
-    // Running loop
+
+    // execution loop
     while(running)
     {
 
     }
+    /// @todo Make a possible restart if the application has failed execution,
+    ///       log and debug data, saving working data and execution breakline
 
     return EXIT_SUCCESS;
 } // End of program
