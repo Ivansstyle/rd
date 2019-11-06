@@ -9,10 +9,6 @@
 #include <vector>
 #include <chrono> /// @todo Set-up application timing
 
-// CPU GPU Queries
-#include "include/queries.hpp"
-
-
 // Define iDEBUG to print debug info to the terminal
 #ifndef iDEBUG
 #define iDEBUG
@@ -24,6 +20,11 @@ void onelineprint(std::string s)
     std::cout<< s << " \n";
 }
 #endif
+
+// CPU GPU Queries
+#include "include/queries.hpp"
+#include "include/process.hpp"
+#include "include/testprocess.hpp"
 
 // Define the output file extention
 #define OUTPUT_EXTENTION "txt"
@@ -103,14 +104,31 @@ int main(int argc,char *argv[])
     int running = 0;
     // Load and initialize
 
+    testprocess test = testprocess();
+
+//    process * tp = new process;
+//    testprocess
+//    test = dynamic_cast<process>(test);
+
+/// @todo Dynamic cast and inheritnce has to be added to work on multiple
+/// process types and to be able to switch processes and thread timers
+/// and observers
+///
+/// @todo add observer class to be able to see data flow and to do
+/// runtime tests/checks
+
 
     // execution loop
-    while(running)
+    running = 1;
+    //while(running)
     {
-
+        running = test.run();
     }
     /// @todo Make a possible restart if the application has failed execution,
     ///       log and debug data, saving working data and execution breakline
+
+
+    // Clean up memory
 
     return EXIT_SUCCESS;
 } // End of program
