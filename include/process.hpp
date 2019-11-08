@@ -12,6 +12,7 @@ public:
     process();
 
     virtual int run();
+    virtual void kill();
 };
 
 #endif // PROCESS_HPP

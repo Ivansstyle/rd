@@ -40,13 +40,17 @@ CONFIG+=C++14
 HEADERS += \
     include/queries.hpp \
     include/process.hpp \
-    include/testprocess.hpp
+    include/testprocess.hpp \
+    sdf/src/SDFSimpleTracer.h \
+    include/observer.h
 
 SOURCES += \
     src/main.cpp \
     src/queries.cpp \
     src/process.cpp \
-    src/testprocess.cpp
+    src/testprocess.cpp \
+    sdf/src/SDFSimpleTracer.cpp \
+    include/observer.cpp
 
 
 
