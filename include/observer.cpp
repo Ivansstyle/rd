@@ -1,6 +1,6 @@
-#include "observer.h"
+//#include "observer.h"
 
-observer::observer()
-{
+//observer::observer()
+//{
 
-}
+//}

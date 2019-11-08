@@ -1,11 +1,11 @@
-#ifndef OBSERVER_H
-#define OBSERVER_H
+//#ifndef ___OBSERVER_H
+//#define ___OBSERVER_H
 
 
-class observer
-{
-public:
-    observer();
-};
+//class observer
+//{
+//public:
+//    observer();
+//};
 
-#endif // OBSERVER_H
+//#endif // OBSERVER_H
