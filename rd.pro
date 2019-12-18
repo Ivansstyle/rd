@@ -1,5 +1,7 @@
 TARGET=rd
 
+OBJECTS_DIR=obj
+
 #Forking depending on OS
 
 QMAKE_CXXFLAGS +=  -Wall -O3 -ffast-math
@@ -12,6 +14,8 @@ INCLUDEPATH += . /usr/include packages/obj-0.1
 #QMAKE_CXXFLAGS += -fopenmp
 #LIBS += -lSDL2 -lglut -lGLU -lGL -lpng
 DEFINES += __OS_LINUX__
+
+INCLUDEPATH  += /usr/include/
 #QMAKE_LFLAGS += -fopenmp
 }
 
@@ -41,16 +45,14 @@ HEADERS += \
     include/queries.hpp \
     include/process.hpp \
     include/testprocess.hpp \
-    sdf/src/SDFSimpleTracer.h \
-    include/observer.h
+    sdf/src/SDFSimpleTracer.hpp
 
 SOURCES += \
-    src/main.cpp \
-    src/queries.cpp \
-    src/process.cpp \
-    src/testprocess.cpp \
     sdf/src/SDFSimpleTracer.cpp \
-    include/observer.cpp
+    src/testprocess.cpp \
+    src/process.cpp \
+    src/queries.cpp \
+    src/main.cpp
 
 
 

@@ -12,6 +12,7 @@
 /// with this code. This structure can be dynamically updated to allow run-time hardware swapping and
 /// detection
 /// @todo Add QT signals that will invoke an update if hardware was changed, thread this process
+/// @todo change data to classes
 
 
 

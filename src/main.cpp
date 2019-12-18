@@ -23,7 +23,7 @@ void onelineprint(std::string s)
 
 // CPU GPU Queries
 #include "include/queries.hpp"
-#include "include/process.hpp"
+//#include "include/process.hpp" // trying to fix compilation
 #include "include/testprocess.hpp"
 
 // Define the output file extention
@@ -80,7 +80,7 @@ int main(int argc,char *argv[])
 
     char compare = dist[0];
     if(compare == 45) // Check for the output file specification, 45 = "-" in ascii
-        // @todo Change to more versatile scanner
+        /// @todo Change to more versatile scanner
     {
         std::cout<<"Output file has not been specified"<<"\n";
         std::cout<<"Setting default output destination to "<<
@@ -104,7 +104,8 @@ int main(int argc,char *argv[])
     int running = 0;
     // Load and initialize
 
-    testprocess test = testprocess();
+    testprocess test;
+
 
 //    process * tp = new process;
 //    testprocess
@@ -115,7 +116,7 @@ int main(int argc,char *argv[])
 /// and observers
 ///
 /// @todo add observer class to be able to see data flow and to do
-/// runtime tests/checks
+/// runtime tests/checks... and actually compiles...
 
 
     // execution loop
@@ -125,7 +126,7 @@ int main(int argc,char *argv[])
         running = test.run();
     }
     /// @todo Make a possible restart if the application has failed execution,
-    ///       log and debug data, saving working data and execution breakline
+    /// log and debug data, saving working data and execution breakline
 
 
     // Clean up memory

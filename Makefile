@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -D__OS_LINUX__ -D__OS_OSX__ -DDEBUG -DQT_QML_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -Wall -O3 -ffast-math -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -isystem /usr/include -Ipackages/obj-0.1 -I/opt/Qt5.12.3/5.12.3/gcc_64/include -I/opt/Qt5.12.3/5.12.3/gcc_64/include/QtGui -I/opt/Qt5.12.3/5.12.3/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I. -isystem /usr/include -Ipackages/obj-0.1 -isystem /usr/include -I/opt/Qt5.12.3/5.12.3/gcc_64/include -I/opt/Qt5.12.3/5.12.3/gcc_64/include/QtGui -I/opt/Qt5.12.3/5.12.3/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.12.3/5.12.3/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = rd1.0.0
-DISTDIR = /home/i7436224/code/rd/.tmp/rd1.0.0
+DISTDIR = /home/i7436224/code/rd/obj/rd1.0.0
 LINK          = g++
 LFLAGS        = -F/Library/Frameworks -Wl,-rpath,/opt/Qt5.12.3/5.12.3/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/opt/Qt5.12.3/5.12.3/gcc_64/lib -lQt5Gui -lQt5Core -lGL -lpthread   
@@ -48,22 +48,20 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = obj/
 
 ####### Files
 
-SOURCES       = src/main.cpp \
-		src/queries.cpp \
-		src/process.cpp \
+SOURCES       = sdf/src/SDFSimpleTracer.cpp \
 		src/testprocess.cpp \
-		sdf/src/SDFSimpleTracer.cpp \
-		include/observer.cpp 
-OBJECTS       = main.o \
-		queries.o \
-		process.o \
-		testprocess.o \
-		SDFSimpleTracer.o \
-		observer.o
+		src/process.cpp \
+		src/queries.cpp \
+		src/main.cpp 
+OBJECTS       = obj/SDFSimpleTracer.o \
+		obj/testprocess.o \
+		obj/process.o \
+		obj/queries.o \
+		obj/main.o
 DIST          = /opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/common/linux.conf \
@@ -259,13 +257,11 @@ DIST          = /opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/features/spec_pre.prf \
 		rd.pro include/queries.hpp \
 		include/process.hpp \
 		include/testprocess.hpp \
-		sdf/src/SDFSimpleTracer.h \
-		include/observer.h src/main.cpp \
-		src/queries.cpp \
-		src/process.cpp \
+		sdf/src/SDFSimpleTracer.hpp sdf/src/SDFSimpleTracer.cpp \
 		src/testprocess.cpp \
-		sdf/src/SDFSimpleTracer.cpp \
-		include/observer.cpp
+		src/process.cpp \
+		src/queries.cpp \
+		src/main.cpp
 QMAKE_TARGET  = rd
 DESTDIR       = 
 TARGET        = rd
@@ -683,8 +679,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.12.3/5.12.3/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/queries.hpp include/process.hpp include/testprocess.hpp sdf/src/SDFSimpleTracer.h include/observer.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/queries.cpp src/process.cpp src/testprocess.cpp sdf/src/SDFSimpleTracer.cpp include/observer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/queries.hpp include/process.hpp include/testprocess.hpp sdf/src/SDFSimpleTracer.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents sdf/src/SDFSimpleTracer.cpp src/testprocess.cpp src/process.cpp src/queries.cpp src/main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -732,28 +728,25 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
-main.o: src/main.cpp include/queries.hpp \
+obj/SDFSimpleTracer.o: sdf/src/SDFSimpleTracer.cpp sdf/src/SDFSimpleTracer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/SDFSimpleTracer.o sdf/src/SDFSimpleTracer.cpp
+
+obj/testprocess.o: src/testprocess.cpp include/testprocess.hpp \
 		include/process.hpp \
+		sdf/src/SDFSimpleTracer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/testprocess.o src/testprocess.cpp
+
+obj/process.o: src/process.cpp include/process.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/process.o src/process.cpp
+
+obj/queries.o: src/queries.cpp include/queries.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/queries.o src/queries.cpp
+
+obj/main.o: src/main.cpp include/queries.hpp \
 		include/testprocess.hpp \
-		sdf/src/SDFSimpleTracer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
-
-queries.o: src/queries.cpp include/queries.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o queries.o src/queries.cpp
-
-process.o: src/process.cpp include/process.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o process.o src/process.cpp
-
-testprocess.o: src/testprocess.cpp include/testprocess.hpp \
 		include/process.hpp \
-		sdf/src/SDFSimpleTracer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testprocess.o src/testprocess.cpp
-
-SDFSimpleTracer.o: sdf/src/SDFSimpleTracer.cpp sdf/src/SDFSimpleTracer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SDFSimpleTracer.o sdf/src/SDFSimpleTracer.cpp
-
-observer.o: include/observer.cpp include/observer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o observer.o include/observer.cpp
+		sdf/src/SDFSimpleTracer.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj/main.o src/main.cpp
 
 ####### Install
 

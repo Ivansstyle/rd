@@ -5,15 +5,15 @@
 //#define iDEBUG
 //#endif
 
-//#include <iostream>
 
 #include "include/process.hpp"
-#include "sdf/src/SDFSimpleTracer.h"
+#include "sdf/src/SDFSimpleTracer.hpp"
 
 class testprocess : public process
 {
 public:
     testprocess();
+    ~testprocess();
 
     int run();
     void kill();
@@ -21,6 +21,7 @@ public:
     bool running = false;
 private:
     SDFSimpleTracer tracer;
+
 };
 
 #endif // TESTPROCESS_HPP

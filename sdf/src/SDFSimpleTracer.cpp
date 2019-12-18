@@ -1,4 +1,4 @@
-#include "SDFSimpleTracer.h"
+#include "SDFSimpleTracer.hpp"
 
 SDFSimpleTracer::SDFSimpleTracer()
 {

@@ -10,9 +10,14 @@ class process
 {
 public:
     process();
+    virtual ~process();
 
-    virtual int run();
-    virtual void kill();
+    virtual int run() = 0;
+    virtual void kill() = 0;
+
+private:
+
+
 };
 
 #endif // PROCESS_HPP

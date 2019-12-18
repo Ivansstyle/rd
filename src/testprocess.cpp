@@ -13,4 +13,9 @@ int testprocess::run()
     return 0;
 }
 
+void testprocess::kill()
+{
+    std::cout<<"Testprocess has been killed\n";
+}
+
 // End of testprocess class
